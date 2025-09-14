@@ -1,8 +1,11 @@
-// frontend/src/components/ProductCard.jsx
+// frontend/src/components/ProductCard.jsx (ATUALIZADO)
 
-import React from 'react';
+import React, { useContext } from 'react'; // 1. IMPORTE O USECONTEXT
+import { CartContext } from '../context/CartContext'; // 2. IMPORTE O NOSSO CONTEXTO
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useContext(CartContext); // 3. PEGUE A FUNÇÃO ADDTOCART DO CONTEXTO
+
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
       <img
@@ -17,7 +20,11 @@ const ProductCard = ({ product }) => {
           <span className="text-xl font-bold text-gray-900">
             R$ {product.price.toFixed(2).replace('.', ',')}
           </span>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          {/* 4. CHAME A FUNÇÃO ADDTOCART NO EVENTO ONCLICK */}
+          <button
+            onClick={() => addToCart(product)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
             Adicionar
           </button>
         </div>
