@@ -1,27 +1,37 @@
-// frontend/src/pages/HomePage.jsx (ATUALIZADO E LIMPO)
+// frontend/src/pages/HomePage.jsx (COM PADDING CORRETO)
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import ProductCard from '../components/ProductCard';
-import { CartContext } from '../context/CartContext';
 
 const HomePage = () => {
-  // ... (useState e useEffect continuam iguais) ...
-  const { cartItems } = useContext(CartContext);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // ...
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data } = await api.get('/products');
+        setProducts(data);
+      } catch (err) {
+        setError('Falha ao carregar produtos.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p className="text-center p-8">Carregando...</p>;
+  if (error) return <p className="text-center p-8 text-red-500">{error}</p>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center my-8">
-        Nossos Produtos
-        <span className="text-lg font-normal ml-4 text-blue-600">
-          (Itens no carrinho: {cartItems.length})
-        </span>
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    // Este div agora controla o espaçamento interno da página
+    <div className="p-4 md:p-8">
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Nossos Produtos</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {products.map((product) => (
-          // Apenas passe o product. O card agora é independente!
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
