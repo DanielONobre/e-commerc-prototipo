@@ -56,7 +56,10 @@ const Header = () => {
                 </div>
               )}
 
-              <span className="font-semibold">Olá, {user.name}</span>
+              <Link to="/profile" className="font-semibold hover:text-gray-300">
+                Olá, {user.name}
+              </Link>
+
               <button
                 onClick={logout}
                 className="p-2 bg-red-600 rounded-lg hover:bg-red-700"

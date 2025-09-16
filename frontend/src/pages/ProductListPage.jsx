@@ -43,10 +43,12 @@ const ProductListPage = () => {
     <div className="p-4 md:p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Gerir Produtos</h1>
-        <Link to="/admin/product/new/edit">
-          <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-            Criar Produto
-          </button>
+        {/* ↓↓↓ O BOTÃO AGORA É O PRÓPRIO LINK ESTILIZADO ↓↓↓ */}
+        <Link
+          to="/admin/product/new/edit"
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Criar Produto
         </Link>
       </div>
       <div className="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
@@ -68,7 +70,7 @@ const ProductListPage = () => {
                 <td className="py-2 px-4 text-gray-900">R$ {product.price}</td>
                 <td className="py-2 px-4 text-center">
                   <Link to={`/admin/product/${product._id}/edit`}>
-                    <button className="bg-yellow-500 text-white px-3 py-1 rounded mr-2 hover:bg-yellow-600">Editar</button>
+                    <button className="bg-yellow-500 text-black px-3 py-1 rounded mr-2 hover:bg-yellow-600">Editar</button>
                   </Link>
                   <button onClick={() => deleteHandler(product._id)} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                     Apagar

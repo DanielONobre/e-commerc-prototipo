@@ -15,6 +15,7 @@ import CheckoutPage from './pages/CheckoutPage'; // <-- 2. IMPORTE
 import AdminRoute from './components/AdminRoute'; // <-- IMPORTE
 import ProductListPage from './pages/ProductListPage'; // <-- IMPORTE
 import ProductEditPage from './pages/ProductEditPage'; // <-- IMPORTE
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   const { loading } = useContext(AuthContext);
@@ -37,6 +38,7 @@ function App() {
           {/* Rotas Protegidas */}
           <Route element={<ProtectedRoute />}>
             <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           {/* Rotas de Administrador */}
           <Route path="/admin" element={<AdminRoute />}>
             <Route path="productlist" element={<ProductListPage />} />

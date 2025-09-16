@@ -1,4 +1,4 @@
-// backend/models/Order.js
+// backend/models/Order.js (VERSÃO FINAL)
 
 const mongoose = require('mongoose');
 
@@ -7,28 +7,35 @@ const orderSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User', // Cria uma referência ao model 'User'
+      ref: 'User',
     },
-    products: [
+    orderItems: [
       {
-        productId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Product' },
+        name: { type: String, required: true },
         quantity: { type: Number, required: true },
         price: { type: Number, required: true },
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Product',
+        },
       },
     ],
-    totalAmount: {
+    shippingAddress: {
+      address: { type: String, required: true },
+      city: { type: String, required: true },
+      postalCode: { type: String, required: true },
+      country: { type: String, required: true },
+    },
+    totalPrice: { // <-- Garantindo que o nome é totalPrice
       type: Number,
       required: true,
-    },
-    shippingAddress: {
-      // Podemos detalhar mais tarde (rua, cidade, etc.)
-      type: Object,
-      required: true,
+      default: 0.0,
     },
     status: {
       type: String,
       required: true,
-      default: 'Pending',
+      default: 'Pendente',
     },
   },
   {

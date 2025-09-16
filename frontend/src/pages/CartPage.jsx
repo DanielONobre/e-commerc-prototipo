@@ -1,20 +1,18 @@
-// frontend/src/pages/CartPage.jsx (VERSÃO CORRIGIDA FINAL)
+// frontend/src/pages/CartPage.jsx (VERSÃO CORRIGIDA)
 
 import React, { useContext } from 'react';
-// 1. IMPORTE TUDO O QUE PRECISAMOS: LINK e USENAVIGATE
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
 const CartPage = () => {
-  // 2. PEGUE TODAS AS FUNÇÕES DO CONTEXTO, INCLUINDO AS QUE FALTAVAM
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
   const navigate = useNavigate();
-
   const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const checkoutHandler = () => {
-    // Agora o navigate está definido e irá funcionar
-    navigate('/login?redirect=/checkout'); // Se não estiver logado, vai para login, depois para checkout
+    // A CORREÇÃO ESTÁ AQUI:
+    // Apenas navegue para o checkout. O ProtectedRoute fará a verificação.
+    navigate('/checkout');
   };
 
   if (!cartItems || cartItems.length === 0) {
@@ -70,7 +68,6 @@ const CartPage = () => {
               <span>Total:</span>
               <span>R$ {total.toFixed(2).replace('.', ',')}</span>
             </div>
-            {/* O botão agora chama a função checkoutHandler */}
             <button onClick={checkoutHandler} className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-4 rounded mt-4">
               Finalizar Compra
             </button>

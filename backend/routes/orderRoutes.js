@@ -1,11 +1,14 @@
-// backend/routes/orderRoutes.js (VERSÃO CORRETA)
+// backend/routes/orderRoutes.js (VERSÃO CORRIGIDA)
 
 const express = require('express');
 const router = express.Router();
-const { addOrderItems } = require('../controllers/orderController');
+
+// ↓↓↓ A CORREÇÃO ESTÁ AQUI: ADICIONE getMyOrders AO IMPORT ↓↓↓
+const { addOrderItems, getMyOrders } = require('../controllers/orderController');
 const { protect } = require('../middleware/authMiddleware');
 
-// A rota POST para '/' usa o middleware 'protect' e depois chama o controller 'addOrderItems'
+// As rotas existentes
 router.post('/', protect, addOrderItems);
+router.get('/myorders', protect, getMyOrders);
 
 module.exports = router;

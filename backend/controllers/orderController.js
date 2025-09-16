@@ -1,4 +1,4 @@
-// backend/controllers/orderController.js (VERSÃO CORRETA)
+// backend/controllers/orderController.js (VERSÃO FINAL)
 
 const Order = require('../models/Order');
 
@@ -13,12 +13,12 @@ const addOrderItems = async (req, res) => {
     const order = new Order({
       orderItems: orderItems.map(item => ({
         ...item,
-        product: item._id, // Garante que a referência do produto está correta
-        _id: undefined // Remove o _id do item do carrinho para que o MongoDB crie um novo
+        product: item._id,
+        _id: undefined,
       })),
       user: req.user._id,
       shippingAddress,
-      totalPrice,
+      totalPrice, // <-- Usando o nome correto
     });
 
     const createdOrder = await order.save();
@@ -30,4 +30,13 @@ const addOrderItems = async (req, res) => {
   }
 };
 
-module.exports = { addOrderItems };
+const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro no servidor', error: error.message });
+  }
+};
+
+module.exports = { addOrderItems, getMyOrders };

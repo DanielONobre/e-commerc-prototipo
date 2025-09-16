@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const uploadRoutes = require('./routes/uploadRoutes'); 
 
 dotenv.config();
 connectDB();
@@ -19,6 +20,7 @@ app.use(express.json()); // <-- ESTA LINHA É A CHAVE! ELA PRECISA ESTAR AQUI.
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes); // <-- ADICIONE ESTA LINHA
 app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes); 
 
 app.get('/', (req, res) => {
   res.send('API do E-commerce está no ar!');
