@@ -18,7 +18,7 @@ const CartPage = () => {
   if (!cartItems || cartItems.length === 0) {
     return (
       <div className="p-8 text-center">
-        <h1 className="text-2xl font-bold mb-4">O seu carrinho está vazio.</h1>
+        <h1 className="text-2xl font-bold mb-4 text-gray-800">O seu carrinho está vazio.</h1>
         <Link to="/" className="text-blue-500 hover:underline">
           Voltar para a loja
         </Link>
